@@ -27,6 +27,9 @@ cd queuectl
 
 pip install click
 
+## Demo Video
+[Output Demo Video](https://drive.google.com/file/d/1tk8AmRbuM1bAQAfpL0dqsAg3MhI7Znx6/view?usp=sharing)
+
 ## Quick Start
 ```bash
 # Install dependencies
