@@ -1,6 +1,7 @@
 import click
 import time
 import threading
+import json
 from job_queue import JobQueue
 from worker import Worker
 
@@ -55,6 +56,36 @@ def list(state):
             click.echo(f"   {job[0]}: {job[1]} (attempts: {job[3]}/{job[4]})")
     else:
         click.echo(f"📭 No jobs with state '{state}'")
+
+@cli.command()
+@click.option('--job-id', help='Specific job ID')
+def show(job_id):
+    """Show job details in JSON format"""
+    queue = JobQueue()
+    conn = queue.storage.get_connection()
+    cursor = conn.cursor()
+    
+    if job_id:
+        cursor.execute('SELECT * FROM jobs WHERE id = ?', (job_id,))
+    else:
+        cursor.execute('SELECT * FROM jobs ORDER BY created_at DESC LIMIT 1')
+    
+    job = cursor.fetchone()
+    conn.close()
+    
+    if job:
+        job_data = {
+            "id": job[0],
+            "command": job[1],
+            "state": job[2],
+            "attempts": job[3],
+            "max_retries": job[4],
+            "created_at": job[5],
+            "updated_at": job[6]
+        }
+        click.echo(json.dumps(job_data, indent=2))
+    else:
+        click.echo("Job not found")
 
 workers = []
 
