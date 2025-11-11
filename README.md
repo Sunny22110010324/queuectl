@@ -62,27 +62,7 @@ pip install queuectl
 
 
 
-## 📁 Project Structure
 
-```
-queuectl/
-├── queuectl/
-│   ├── __init__.py
-│   ├── cli.py         # Main CLI entry point
-│   ├── commands/      # Subcommands
-│   │   ├── status.py
-│   │   ├── enqueue.py
-│   │   └── ...
-│   ├── queue_backends/ # Queue system implementations
-│   │   ├── redis_queue.py
-│   │   └── ...
-│   ├── config.py      # Configuration management
-│   └── utils.py       # Utility functions
-├── tests/             # Test suite
-├── README.md          # Project documentation
-├── LICENSE            # License file
-└── setup.py           # Installation script
-```
 
 
 
